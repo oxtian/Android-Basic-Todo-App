@@ -10,11 +10,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.apache.commons.io.FileUtils;
+import com.codepath.simpletodo.db.ToDoItem;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> todoItems;
@@ -81,24 +81,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        //take all the input
-        try {
-            todoItems = new ArrayList<String>(FileUtils.readLines(todoFile));
-        } catch (IOException e) {
-            //in case file doesnt exist
-        }
+        List<ToDoItem> todoItems = SQLite.select().from(ToDoItem.class).queryList();
     }
 
     private void writeItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try {
-            FileUtils.writeLines(todoFile, todoItems);
-        } catch (IOException e) {
-
-        }
+        ToDoItem todoItems = new ToDoItem();
+        todoItems.async().save();
     }
-
 }
