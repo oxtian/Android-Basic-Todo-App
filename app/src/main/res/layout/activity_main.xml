@@ -11,8 +11,8 @@
     tools:context="com.codepath.simpletodo.MainActivity">
 
     <Button
-        android:text="Add Item"
-        android:onClick="onAddItem (MainActivity)"
+        android:text="@string/add_item_button"
+        android:onClick="onAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
