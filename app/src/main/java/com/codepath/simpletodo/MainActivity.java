@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void populateArrayItems() {
-        todoItems = new ArrayList<String>();
         readItems();
         itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
     }
@@ -78,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     public void onAddItem(View view) {
         itemsAdapter.add(etEditText.getText().toString());
         etEditText.setText("");
+        writeItems();
     }
 
     private void readItems() {
