@@ -35,18 +35,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         populateArrayItems();
         lvItems = (ListView)findViewById(R.id.lvItems);
-        //pass adapter to the list view
+        // pass adapter to the list view
         lvItems.setAdapter(itemsAdapter);
         etEditText = (EditText)findViewById(R.id.etEditText);
+        // To Delete
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ToDoItem itemToDelete = todoItems.get(position);
                 todoItems.remove(position);
                 itemsAdapter.notifyDataSetChanged();
-//                writeItems();
+
+                deleteItem(itemToDelete);
                 return true;
             }
         });
+        // To Edit
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+    @Override //update item value after edit
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            // Extract name value from result extras
+            // Extract value from result extras
             String editedItemInString = intent.getStringExtra("edited");
             itemPosition = intent.getExtras().getInt("item_position");
 
@@ -101,5 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void writeItems(ToDoItem itemData) {
         itemData.async().save();
+    }
+
+    private void deleteItem(ToDoItem itemData) {
+        itemData.delete();
     }
 }
