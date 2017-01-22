@@ -11,10 +11,10 @@ import java.util.UUID;
 public class ToDoItem extends BaseModel {
     @Column
     @PrimaryKey
-    String id;
+    public String id;
 
     @Column
-    String item;
+    public String item;
 
     public ToDoItem() {
     }

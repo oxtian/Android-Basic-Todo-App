@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<ToDoItem> todoItems;
-    ArrayAdapter<ToDoItem> itemsAdapter;
+    ToDoItemsAdapter itemsAdapter;
     ListView lvItems;
     EditText etEditText;
     int itemPosition;
@@ -28,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        todoItems = new ArrayList<ToDoItem>();
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
-
         setContentView(R.layout.activity_main);
+        // Construct the data source
+        todoItems = new ArrayList<>();
+        // Create the adapter to convert the array to views
+        itemsAdapter = new ToDoItemsAdapter(this, todoItems);
         populateArrayItems();
-        lvItems = (ListView)findViewById(R.id.lvItems);
-        // pass adapter to the list view
+        lvItems = (ListView) findViewById(R.id.lvItems);
+        // Attach the adapter to a ListView
         lvItems.setAdapter(itemsAdapter);
         etEditText = (EditText)findViewById(R.id.etEditText);
         // To Delete
@@ -87,25 +86,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void onAddItem(View view) {
         String itemVal = etEditText.getText().toString();
-
         ToDoItem itemData = new ToDoItem();
         itemData.setItem(itemVal);
         writeItems(itemData);
-
         itemsAdapter.add(itemData);
         etEditText.setText("");
-        writeItems();
     }
 
     private void readItems() {
         List<ToDoItem> todoItemsFromDb = SQLite.select().from(ToDoItem.class).queryList();
-        for (ToDoItem val : todoItemsFromDb) {
-            itemsAdapter.add(val);
+        try {
+            for (ToDoItem val : todoItemsFromDb) {
+                itemsAdapter.add(val);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
     private void writeItems(ToDoItem itemData) {
-        itemData.async().save();
+        try {
+            itemData.async().save();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void deleteItem(ToDoItem itemData) {
