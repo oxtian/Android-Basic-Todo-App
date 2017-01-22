@@ -5,6 +5,9 @@
     <TextView
         android:id="@+id/tvItem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Text goes here" />
+        android:layout_height="40sp"
+        android:typeface="sans"
+        android:textColor="#1c2f2f"
+        android:textSize="28sp"
+        android:layout_margin="10dp" />
 </LinearLayout>
