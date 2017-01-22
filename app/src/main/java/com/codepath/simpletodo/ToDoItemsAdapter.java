@@ -25,15 +25,6 @@ public class ToDoItemsAdapter extends ArrayAdapter<ToDoItem> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.to_do_item, parent, false);
         }
 
-//        if (todoItem != null) {
-//            // Lookup view for data population
-//            TextView tvItem = (TextView) convertView.findViewById(R.id.tvItem);
-//            if (tvItem != null) {
-//                //Populate the data into the template view using the data object
-//                tvItem.setText(todoItem.item);
-//            }
-//        }
-
         TextView tvItem = (TextView) convertView.findViewById(R.id.tvItem);
         tvItem.setText(todoItem.item);
 

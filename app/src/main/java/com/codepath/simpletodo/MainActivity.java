@@ -28,22 +28,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Construct the data source
         todoItems = new ArrayList<>();
         // Create the adapter to convert the array to views
         itemsAdapter = new ToDoItemsAdapter(this, todoItems);
-        // Attach the adapter to a ListView
-
-//        todoItems = new ArrayList<ToDoItem>();
-        //itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
-
         populateArrayItems();
         lvItems = (ListView) findViewById(R.id.lvItems);
+        // Attach the adapter to a ListView
         lvItems.setAdapter(itemsAdapter);
-        //lvItems = (ListView)findViewById(R.id.lvItems);
-        // pass adapter to the list view
-        //lvItems.setAdapter(itemsAdapter);
         etEditText = (EditText)findViewById(R.id.etEditText);
         // To Delete
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -93,13 +85,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onAddItem(View view) {
-
         String itemVal = etEditText.getText().toString();
-
         ToDoItem itemData = new ToDoItem();
         itemData.setItem(itemVal);
         writeItems(itemData);
-
         itemsAdapter.add(itemData);
         etEditText.setText("");
     }
