@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<ToDoItem> todoItems;
-    ArrayAdapter<ToDoItem> itemsAdapter;
+    ToDoItemsAdapter itemsAdapter;
     ListView lvItems;
     EditText etEditText;
     int itemPosition;
@@ -28,15 +27,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        todoItems = new ArrayList<ToDoItem>();
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
-
         setContentView(R.layout.activity_main);
+
+        // Construct the data source
+        final ArrayList<ToDoItem> todoItems = new ArrayList<>();
+        // Create the adapter to convert the array to views
+        final ToDoItemsAdapter itemsAdapter = new ToDoItemsAdapter(this, todoItems);
+        // Attach the adapter to a ListView
+
+//        todoItems = new ArrayList<ToDoItem>();
+        //itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
+
         populateArrayItems();
-        lvItems = (ListView)findViewById(R.id.lvItems);
-        // pass adapter to the list view
+        lvItems = (ListView) findViewById(R.id.lvItems);
         lvItems.setAdapter(itemsAdapter);
+        //lvItems = (ListView)findViewById(R.id.lvItems);
+        // pass adapter to the list view
+        //lvItems.setAdapter(itemsAdapter);
         etEditText = (EditText)findViewById(R.id.etEditText);
         // To Delete
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -86,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onAddItem(View view) {
+
         String itemVal = etEditText.getText().toString();
 
         ToDoItem itemData = new ToDoItem();
@@ -94,18 +102,29 @@ public class MainActivity extends AppCompatActivity {
 
         itemsAdapter.add(itemData);
         etEditText.setText("");
-        writeItems();
     }
 
     private void readItems() {
         List<ToDoItem> todoItemsFromDb = SQLite.select().from(ToDoItem.class).queryList();
-        for (ToDoItem val : todoItemsFromDb) {
-            itemsAdapter.add(val);
+//        for (ToDoItem val : todoItemsFromDb) {
+//            itemsAdapter.add(val);
+
+        try {
+            for (ToDoItem val : todoItemsFromDb) {
+                itemsAdapter.add(val);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
     private void writeItems(ToDoItem itemData) {
-        itemData.async().save();
+        try {
+            itemData.async().save();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void deleteItem(ToDoItem itemData) {
