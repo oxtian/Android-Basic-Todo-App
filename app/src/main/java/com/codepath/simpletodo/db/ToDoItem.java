@@ -16,11 +16,19 @@ public class ToDoItem extends BaseModel {
     @Column
     public String item;
 
+    @Column
+    public String priority;
+
+    @Column
+    public String due_date;
+
     public ToDoItem() {
     }
 
-    public ToDoItem(String item) {
+    public ToDoItem(String item, String priority, String due_date) {
         this.item = item;
+        this.priority = priority;
+        this.due_date = due_date;
     }
 
     public String getItem() {
@@ -29,6 +37,22 @@ public class ToDoItem extends BaseModel {
 
     public void setItem(String item) {
         this.item = item;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getDueDate() {
+        return due_date;
+    }
+
+    public void setDueDate(String due_date) {
+        this.due_date = due_date;
     }
 
     public String getId() {
@@ -46,6 +70,6 @@ public class ToDoItem extends BaseModel {
 
     @Override
     public String toString() {
-        return item;
+        return item + priority + due_date;
     }
 }
