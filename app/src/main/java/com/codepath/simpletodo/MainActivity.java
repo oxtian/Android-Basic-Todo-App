@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Construct the data source
-        final ArrayList<ToDoItem> todoItems = new ArrayList<>();
+        todoItems = new ArrayList<>();
         // Create the adapter to convert the array to views
-        final ToDoItemsAdapter itemsAdapter = new ToDoItemsAdapter(this, todoItems);
+        itemsAdapter = new ToDoItemsAdapter(this, todoItems);
         // Attach the adapter to a ListView
 
 //        todoItems = new ArrayList<ToDoItem>();
@@ -106,9 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void readItems() {
         List<ToDoItem> todoItemsFromDb = SQLite.select().from(ToDoItem.class).queryList();
-//        for (ToDoItem val : todoItemsFromDb) {
-//            itemsAdapter.add(val);
-
         try {
             for (ToDoItem val : todoItemsFromDb) {
                 itemsAdapter.add(val);
