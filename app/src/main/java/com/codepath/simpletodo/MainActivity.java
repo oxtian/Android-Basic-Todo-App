@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent goToEdit = new Intent(MainActivity.this, EditItemActivity.class);
                 //Get the value of the item you clicked
                 goToEdit.putExtra("to do item", todoItems.get(position).getItem());
+                goToEdit.putExtra("priority", todoItems.get(position).getPriority());
+                goToEdit.putExtra("due date", todoItems.get(position).getDueDate());
                 goToEdit.putExtra("position", position);
                 startActivityForResult(goToEdit, REQUEST_CODE); // brings up the second activity
             }

@@ -17,6 +17,28 @@
         android:ems="10"
         android:layout_marginTop="84dp"
         android:id="@+id/etEditItem"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/btnEditItem"
+        android:layout_alignStart="@+id/btnEditItem" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_marginTop="84dp"
+        android:id="@+id/etSetPriority"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/btnEditItem"
+        android:layout_alignStart="@+id/btnEditItem" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_marginTop="84dp"
+        android:id="@+id/etSetDueDate"
         android:windowSoftInputMode="stateAlwaysVisible"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/btnEditItem"
